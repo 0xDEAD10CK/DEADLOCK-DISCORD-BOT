@@ -7,6 +7,7 @@ class ReactRolesCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.roles_channel_id = os.getenv('ROLES_CHANNEL_ID')
+        self.owner_id = os.getenv('OWNER_ID')
         self.role_dict = {
                     "🩷": "she/her",
                     "💙": "he/him",
@@ -45,7 +46,7 @@ class ReactRolesCog(commands.Cog):
     async def create_reaction_role_channel(self, ctx):
 
         # Check if command is run by only me
-        if ctx.author.id != 141446224636018688:
+        if ctx.author.id != self.owner_id:
             await ctx.send("You do not have permission to run this command.")
             return
         
