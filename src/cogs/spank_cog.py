@@ -23,7 +23,6 @@ class SpankCog(commands.Cog):
             "~I'll be good~",
             "~I'll be better~",
             "~I'll be your good girl~",
-            "~Amy said No~",
             "~Daddy?~",
             "~I'm sorry daddy~",
             "~Don't stop~"]
