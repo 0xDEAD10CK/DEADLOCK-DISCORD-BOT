@@ -26,7 +26,7 @@ async def load_extensions():
             if filename.startswith('opt_'):
                 ans = input(f'{filename[4:-3]} is an optional Cog. \nWould you like to add it? y/n:')
                 if ans.lower() != 'y':
-                    break;
+                    break
 
             await bot.load_extension(f'cogs.{filename[:-3]}')
 
