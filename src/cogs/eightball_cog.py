@@ -13,6 +13,7 @@ class EightballCog(commands.Cog):
 
     @commands.command(name='eightball')
     async def eightball(self, ctx, question: str):
+        '''Eightball command for getting random answers to questions.'''
 
         responses = ["Yes, definitely.", "No, never.", "Ask again later.", "Don't count on it.", "It is certain.",
                     "Very doubtful.", "Most likely.", "My sources say no.", "Outlook not so good.", "Yes, but not right now.",

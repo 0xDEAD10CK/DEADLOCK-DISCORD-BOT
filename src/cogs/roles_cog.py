@@ -44,17 +44,18 @@ class ReactRolesCog(commands.Cog):
 
     @commands.command(name='create_reaction_role_channel')
     async def create_reaction_role_channel(self, ctx):
+        '''Creates the reaction role channel'''
 
         # Check if command is run by only me
         if ctx.author.id != self.owner_id:
             await ctx.send("You do not have permission to run this command.")
             return
-        
+
         guild = ctx.guild
 
         # get roles text channel
         channel = discord.utils.get(guild.text_channels, name="get-roles")
-        
+
         # Send messages and store them in variables
         gender_message = await channel.send(
             "React to the messages below to get the corresponding roles: \n\n"
@@ -62,7 +63,7 @@ class ReactRolesCog(commands.Cog):
             "he/him - 💙 \n"
             "they/them - 💛 \n\n"
         )
-        
+
         age_message = await channel.send(
             "18-24 - 1️⃣ \n"
             "25-30 - 2️⃣ \n"
@@ -103,21 +104,21 @@ class ReactRolesCog(commands.Cog):
             "💙": "he/him",
             "💛": "they/them"
         }
-        
+
         age_roles = {
             "1️⃣": "18-24",
             "2️⃣": "25-30",
             "3️⃣": "31-44",
             "4️⃣": "45+"
         }
-        
+
         platform_roles = {
             "🖥️": "PC",
             "🎮": "Xbox",
             "🎰": "Playstation",
             "🕹️": "Nintendo Switch"
         }
-        
+
         relationship_roles = {
             "🤍": "Single",
             "💚": "Taken",
@@ -127,7 +128,7 @@ class ReactRolesCog(commands.Cog):
             "🙅🏽": "Poly/Not Looking",
             "😏": "Poly/Flirting"
         }
-        
+
         dm_roles = {
             "📱": "Open Dms",
             "❓": "Ask to Dm",
@@ -158,6 +159,9 @@ class ReactRolesCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
+        '''Listens for when the user adds a reaction to
+          a message in the reaction channel.'''
+
         # Check if the reaction is in the "get-roles" channel
         if str(payload.channel_id) == self.roles_channel_id:
             guild = self.bot.get_guild(payload.guild_id)
@@ -180,6 +184,9 @@ class ReactRolesCog(commands.Cog):
 
     @commands.Cog.listener()
     async def on_raw_reaction_remove(self, payload):
+        '''Listens for when the user removes a
+         reaction from a message in the reaction channel.'''
+
         if str(payload.channel_id) == self.roles_channel_id:
             guild = self.bot.get_guild(payload.guild_id)
             member = guild.get_member(payload.user_id)
