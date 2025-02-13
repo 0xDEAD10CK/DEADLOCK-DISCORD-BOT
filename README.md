@@ -19,9 +19,11 @@ This is a simple Discord bot project that demonstrates the use of cogs to organi
    ```
 
 3. **Create a `.env` file:**
-   Create a file named `.env` in the root directory and add your Discord bot token:
+   Create a file named `.env` in the src directory and add your Discord bot token:
    ```
    DISCORD_TOKEN=your_token_here
+   OWNER_ID=your_discord_user_id
+   ROLES_CHANNEL_ID=your_role_text_channel_id
    ```
 
 ## Running the Bot

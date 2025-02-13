@@ -3,6 +3,8 @@ from discord.ext import commands
 import os
 import dotenv
 
+os.system('title' + 'Dungeon Master')
+
 dotenv.load_dotenv()
 bot_token = os.getenv('BOT_TOKEN')
 

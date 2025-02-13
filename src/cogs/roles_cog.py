@@ -3,6 +3,7 @@ from discord.ext import commands
 import dotenv
 import os
 import datetime as dt
+
 class ReactRolesCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -40,7 +41,6 @@ class ReactRolesCog(commands.Cog):
     async def on_ready(self):
         print(f'[ WORKING ] - Reaction Roles Cog has loaded!')
 
-        print(f'{self.roles_channel_id}')  # Debugging
 
     @commands.command(name='create_reaction_role_channel')
     async def create_reaction_role_channel(self, ctx):
