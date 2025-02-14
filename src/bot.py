@@ -13,6 +13,11 @@ dotenv.load_dotenv()
 bot_token = os.getenv('BOT_TOKEN')
 
 intents = discord.Intents.default()
+intents.dm_messages = True
+intents.members = True
+intents.messages = True
+intents.guilds = True
+intents.reactions = True
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='!', intents=intents)
