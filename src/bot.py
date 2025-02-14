@@ -49,6 +49,7 @@ async def main():
     async with bot:
         await load_extensions()
         await bot.start(bot_token)
+        os.system('clear')
 
 if __name__ == '__main__':
     import asyncio
