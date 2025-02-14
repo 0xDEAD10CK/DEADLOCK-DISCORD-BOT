@@ -1,12 +1,16 @@
 import discord
 from discord.ext import commands
-import dotenv
 import os
 
 class VerificationCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.verification_channel_id = os.getenv('VERIFICATION_CHANNEL_ID')  # Replace with your channel ID
+        self.verification_channel_id = 1339687653754404934  # Replace with your channel ID as an integer
+        self.verified_role_id = 123456789012345678  # Replace with your verified role ID as an integer
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print(f'[ WORKING ] - Verification Cog has loaded!')
 
     @commands.Cog.listener()
     async def on_message(self, message):
@@ -29,6 +33,7 @@ class VerificationCog(commands.Cog):
 
             if len(image_attachments) == 2:
                 verification_channel = self.bot.get_channel(self.verification_channel_id)
+                print(verification_channel)
 
                 if verification_channel:
                     files = [await attachment.to_file() for attachment in image_attachments]
@@ -48,6 +53,22 @@ class VerificationCog(commands.Cog):
                 await message.channel.send("Please upload exactly two images in the same message for verification.")
 
             await message.delete(delay=5)  # Delete the message after 5 seconds
+
+    @commands.Cog.listener()
+    async def on_raw_reaction_add(self, payload):
+        if payload.channel_id == self.verification_channel_id:
+            guild = self.bot.get_guild(payload.guild_id)
+            member = guild.get_member(payload.user_id)
+            if member.bot:
+                return  # Ignore bot reactions
+
+            if str(payload.emoji) == "✅":
+                role = guild.get_role(self.verified_role_id)
+                if role:
+                    await member.add_roles(role)
+                    await member.send("You have been verified and the verified role has been added to you.")
+            elif str(payload.emoji) == "❌":
+                await member.send("Your verification request has been denied. Please contact the moderators for more information.")
 
 async def setup(bot):
     await bot.add_cog(VerificationCog(bot))
