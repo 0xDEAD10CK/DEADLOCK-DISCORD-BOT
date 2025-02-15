@@ -117,7 +117,7 @@ class ChannelPointsCog(commands.Cog):
                 await self.set_message_count(user_id, 0)
                 print(f"[DEBUG] {message.author} earned a point! New total: {current_points + 1}")
 
-    @tasks.loop(minute=5.0)
+    @tasks.loop(minutes=5.0)
     async def passive_reward(self):
         print("[DEBUG] Running passive rewards task...")
         async with self.reward_lock:
