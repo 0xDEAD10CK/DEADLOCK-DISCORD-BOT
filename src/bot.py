@@ -25,11 +25,7 @@ bot = commands.Bot(command_prefix='!', intents=intents)
 
 @bot.event
 async def on_ready():
-    # get os and clear the screen
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+    os.system('clear')
     print(f'{bot.user} has connected to Discord!')
 
 async def load_extensions():
