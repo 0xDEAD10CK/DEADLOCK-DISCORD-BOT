@@ -19,7 +19,6 @@ class ChannelPointsCog(commands.Cog):
     async def on_ready(self):
         print("[DEBUG] ChannelPointsCog is ready.")
         await self.initialize_all_users()
-        self.passive_reward.start()
 
     async def initialize_database(self):
         async with aiosqlite.connect(self.db_file) as db:
@@ -116,18 +115,6 @@ class ChannelPointsCog(commands.Cog):
                 await self.set_points(user_id, current_points + 1)
                 await self.set_message_count(user_id, 0)
                 print(f"[DEBUG] {message.author} earned a point! New total: {current_points + 1}")
-
-    @tasks.loop(minutes=5.0)
-    async def passive_reward(self):
-        print("[DEBUG] Running passive rewards task...")
-        async with self.reward_lock:
-            async with aiosqlite.connect(self.db_file) as db:
-                async with db.execute('SELECT user_id FROM message_counts') as cursor:
-                    async for row in cursor:
-                        user_id = row[0]
-                        current_points = await self.get_points(user_id)
-                        await self.set_points(user_id, current_points + 2)
-                        print(f"[DEBUG] {user_id} received passive points. New total: {current_points + 2}")
 
     @commands.command(name='points')
     async def check_points(self, ctx):
