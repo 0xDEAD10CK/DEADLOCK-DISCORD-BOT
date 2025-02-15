@@ -67,7 +67,7 @@ class ChannelPointsCog(commands.Cog):
                         ON CONFLICT(user_id) DO NOTHING
                     ''', (user_id,))
                     await db.commit()
-        print("[DEBUG] All users initialized with 0 points and 0 message counts.")
+        print(f"[{dt.datetime.now()}] All users initialized with 0 points and 0 message counts.")
 
     async def get_points(self, user_id):
         async with aiosqlite.connect(self.db_file) as db:

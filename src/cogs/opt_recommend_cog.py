@@ -1,6 +1,7 @@
 import discord
 from discord.ext import commands
 import os
+import datetime as dt
 
 class RecommendCog(commands.Cog):
     def __init__(self, bot):
@@ -20,6 +21,7 @@ class RecommendCog(commands.Cog):
 
         # Send owner a message
         await owner.send(f'{ctx.author} has requested a recommendation!\n\nMessage: {message_content}')
+        print(f'[{dt.datetime.now()}] {ctx.author} has requested a recommendation!\n\nMessage: {message_content}')
 
 async def setup(bot):
     await bot.add_cog(RecommendCog(bot))

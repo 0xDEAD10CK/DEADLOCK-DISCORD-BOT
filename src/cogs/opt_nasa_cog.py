@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import aiohttp
 import os
-
+import datetime as dt
 class NasaCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -25,6 +25,8 @@ class NasaCog(commands.Cog):
                     await ctx.send(embed=embed)
                 else:
                     await ctx.send('Failed to fetch APOD data from NASA.')
+        
+        print(f'[{dt.datetime.now()}] {ctx.author} has requested the Astronomy Picture of the Day.')
 
 async def setup(bot):
     await bot.add_cog(NasaCog(bot))
