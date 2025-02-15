@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands, tasks
 import asyncio
 import aiosqlite
+import datetime as dt
 
 class ChannelPointsCog(commands.Cog):
     def __init__(self, bot):
@@ -102,19 +103,17 @@ class ChannelPointsCog(commands.Cog):
             return  # Ignore bot messages
 
         user_id = str(message.author.id)
-        print(f"[DEBUG] {message.author} sent a message.")
 
         async with self.message_lock:
             current_count = await self.get_message_count(user_id)
             new_count = current_count + 1
             await self.set_message_count(user_id, new_count)
-            print(f"[DEBUG] {message.author} sent a message. Total messages: {new_count}")
 
             if new_count >= self.message_threshold:
                 current_points = await self.get_points(user_id)
                 await self.set_points(user_id, current_points + 1)
                 await self.set_message_count(user_id, 0)
-                print(f"[DEBUG] {message.author} earned a point! New total: {current_points + 1}")
+                print(f"[{dt.datetime.now()}] {message.author} earned a point! New total: {current_points + 1}")
 
     @commands.command(name='points')
     async def check_points(self, ctx):
