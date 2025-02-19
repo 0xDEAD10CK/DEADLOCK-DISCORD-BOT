@@ -37,7 +37,7 @@ class WelcomeCog(commands.Cog):
             "Welcome {user}! We hope you like terrible jokes, because we have a lot of them.",
             "What’s up, {user}? You’ve entered a realm of madness. Enjoy your stay!",
             "We got a fresh one! Welcome, {user}, to the land of the weird!",
-            "Welcome {user}! We just sacrificed a bot to bring you here. Worth it.",
+            "Welcome {user}! We just sacrificed one of the men to bring you here. Worth it.",
             "Attention everyone! {user} has entered the building! Sound the alarms!",
             "You thought you could just join and not be noticed? Ha! Welcome, {user}!",
             "Welcome, {user}! The prophecy foretold your arrival… kind of.",
