@@ -174,3 +174,4 @@ cython_debug/
 # misc files
 *.json
 *.db
+utils/

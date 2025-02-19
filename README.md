@@ -39,6 +39,14 @@ This is a simple Discord bot project that demonstrates the use of cogs to organi
    - The @everyone roles should be cleared of permissions.
    - The Rules channel permissions for @everyone should allow View Channel, Add Reactions and Read Message History.
 
+5. **Optional Welcome Messages: Set up Welcome Channel and Utils file.**
+   - Create a folder called 'utils' in the /src directory.
+   - Inside the src folder, create a python script called welcome_messages.py
+   - In the script create an array called welcome_messages and populate with custom messages.
+
+   - WELCOME_MESSAGE_TEMPLATE = ["Welcome {user_mention} to the server! We're glad to have you here."]
+
+   - In the .env file add 'WELCOME_CHANNEL_ID=your_welcome_channel_id' replacing it with the welcome channel id.
 
 ## Running the Bot
 
