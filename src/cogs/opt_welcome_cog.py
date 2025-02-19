@@ -72,7 +72,7 @@ class WelcomeCog(commands.Cog):
             # Get the welcome channel
             welcome_channel = member.guild.get_channel(int(self.welcome_channel))
             # Send the welcome message to the welcome channel
-            await welcome_channel.send(random.choice(self.welcome_messages).format(user=member))
+            await welcome_channel.send(random.choice(self.welcome_messages).format(user=member.mention))
 
         # Test a random welcome message
     @commands.command(name='welcome_test')
