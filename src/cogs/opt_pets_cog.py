@@ -150,6 +150,14 @@ class PetsCog(commands.Cog):
             await ctx.send("You don't have a pet yet! Use `!adopt` first.")
             return
         
+        pet = self.pets["users"][user_id]
+        pet_hunger = pet["hunger"]
+
+        if pet_hunger == 100:
+            await ctx.send("Your pet is already full!")
+            return
+        
+        
 
     @commands.command(name='view_pet')
     async def pet(self, ctx):
