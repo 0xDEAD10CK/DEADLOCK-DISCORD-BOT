@@ -4,7 +4,7 @@ import os
 import asyncio
 import random
 import datetime as dt
-from discord.ext import commands
+from discord.ext import commands, tasks
 
 PET_DATA_FILE = "utils/pets.json"
 
@@ -121,7 +121,8 @@ class PetsCog(commands.Cog):
             "hunger": 100,
             "happiness": 100,
             "last_fed": str(dt.datetime.now()),
-            "last_played": str(dt.datetime.now())
+            "last_played": str(dt.datetime.now()),
+            "inventory": {}
         }
         await self.save_pet_data()  # Use async function
 
@@ -141,6 +142,43 @@ class PetsCog(commands.Cog):
 
         await ctx.send(f"Your pet is now named **{name}**! 🐾")
 
+    @tasks.loop(minutes=60)
+    async def hourly_updates(self):
+        for user_id, pet in self.pets["users"].items():
+            pet_hunger = pet["hunger"]
+            pet_happiness = pet["happiness"]
+
+            if pet_hunger > 0:
+                pet["hunger"] = max(pet_hunger - 10, 0)
+            if pet_happiness > 0:
+                pet["happiness"] = max(pet_happiness - 10, 0)
+            
+            await self.save_pet_data()
+
+
+    @commands.command(name='play')
+    async def play(self, ctx):
+        '''Play with your pet to increase happiness percentage.'''
+        user_id = str(ctx.author.id)
+
+        if user_id not in self.pets["users"]:
+            await ctx.send("You don't have a pet yet! Use `!adopt` first.")
+            return
+        
+        pet = self.pets["users"][user_id]
+        pet_happiness = pet["happiness"]
+
+        if pet_happiness == 100:
+            await ctx.send("Your pet is already happy!")
+            return
+
+        pet["happiness"] = min(pet_happiness + 10, 100)
+        pet["last_played"] = str(dt.datetime.now())
+        await self.save_pet_data()  # Use async function
+
+        await ctx.send(f"You played with your pet! Happiness increased by 10%.")
+
+    
     @commands.command(name='feed')
     async def feed(self, ctx):
         '''Feed your pet to increase hunger percentage.'''
@@ -157,7 +195,9 @@ class PetsCog(commands.Cog):
             await ctx.send("Your pet is already full!")
             return
         
+
         
+
 
     @commands.command(name='view_pet')
     async def pet(self, ctx):
