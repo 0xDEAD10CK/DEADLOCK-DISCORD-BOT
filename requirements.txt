@@ -1,3 +1,7 @@
 discord.py
 aiosqlite
 asyncio
+PyNaCl
+python-dotenv
+yt-dlp
+inquirer
