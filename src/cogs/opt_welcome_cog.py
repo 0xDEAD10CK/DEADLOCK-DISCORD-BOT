@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import random
 import os
-from src.utils.welcome_messages import welcome_messages
+from utils.welcome_messages import welcome_messages
 
 class WelcomeCog(commands.Cog):
     def __init__(self, bot):
