@@ -21,9 +21,13 @@ class MusicCog(commands.Cog):
             return
 
         channel = ctx.author.voice.channel
+        print(channel)
         if ctx.voice_client is None:
-            await channel.connect()
-
+            await ctx.send('Connecting to Voice Channel')
+            try:
+                await channel.connect()
+            except Exception as e:
+                print(e)
         self.audio_queue.append(url)
         if not ctx.voice_client.is_playing():
             await self.stream_audio_to_discord(ctx.voice_client)
