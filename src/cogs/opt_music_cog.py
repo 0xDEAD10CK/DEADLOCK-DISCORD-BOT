@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import yt_dlp
 import asyncio
+import datetime
 from collections import deque
 
 class MusicCog(commands.Cog):
@@ -35,8 +36,7 @@ class MusicCog(commands.Cog):
                 'quiet': True,
                 'default_search': 'ytsearch',
                 'noplaylist': True,
-                'extract_flat': False,
-                'cookiesfrombrowser': 'firefox',
+                'extract_flat': False
             }
 
             try:
@@ -54,6 +54,11 @@ class MusicCog(commands.Cog):
                     await asyncio.sleep(1)
             except Exception as e:
                 print(f'Error streaming audio: {e}')
+
+                filename = f'music_error_log_{datetime.datetime.now}.txt'
+                with open(filename, 'w') as f:
+                    f.write(f'Error streaming audio: {e}')
+                    f.close()
                 await vc.disconnect()
 
 async def setup(bot):
